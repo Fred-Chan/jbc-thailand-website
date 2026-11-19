@@ -178,22 +178,6 @@
   .ticks b{color:var(--ink)}
   @media(max-width:900px){.about-grid{grid-template-columns:1fr}}
 
-  /* ---------- film ---------- */
-  .film-sec{
-    background:
-      radial-gradient(1200px 500px at 15% 0%, rgba(247,168,35,.16), transparent 60%),
-      var(--ink);
-    color:#fff;padding:clamp(64px,8vw,110px) 0;
-  }
-  .film-head{max-width:70ch;margin-bottom:38px}
-  .video-frame{
-    position:relative;width:100%;padding-top:56.25%;border-radius:20px;overflow:hidden;
-    background:#000;box-shadow:0 40px 90px -40px rgba(0,0,0,.9);border:1px solid rgba(255,255,255,.12);
-  }
-  .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  .film-note{margin-top:16px;font-size:13.5px;color:rgba(255,255,255,.55)}
-  .film-note a{color:var(--gold-soft);font-weight:700}
-
   /* ---------- levels ---------- */
   .levels-sec{background:linear-gradient(180deg,var(--paper),#FFF3E0)}
   .center-head{max-width:64ch;margin:0 auto 46px;text-align:center}
@@ -371,7 +355,6 @@
     </a>
     <nav class="nav-links">
       <a href="#about">About</a>
-      <a href="#film">Film</a>
       <a href="#levels">Levels</a>
       <a href="#recap">2026 Recap</a>
       <a href="#international">International Teams</a>
@@ -383,7 +366,6 @@
   </div>
   <div class="mobile-menu" id="mobileMenu">
     <a href="#about">About</a>
-    <a href="#film">Film</a>
     <a href="#levels">Levels</a>
     <a href="#recap">2026 Recap</a>
     <a href="#international">International Teams</a>
@@ -416,7 +398,6 @@
       </div>
       <div class="hero-cta">
         <a href="#contact" class="btn btn-primary">Register your interest →</a>
-        <a href="#film" class="btn btn-ghost">▶ Watch the film</a>
       </div>
       <div class="hero-meta">
         <div><b>700+</b><span>participants &amp; guests in 2026</span></div>
@@ -507,31 +488,6 @@
     </div>
   </section>
 
-  <section id="film" class="film-sec">
-    <div class="wrap">
-      <div class="film-head reveal">
-        <span class="eyebrow" style="color:var(--gold)">Official film</span>
-        <h2 class="sec-title" style="color:#fff">See a competition day from the inside</h2>
-        <p class="lede" style="color:rgba(255,255,255,.68)">
-          Three minutes that explain the format better than any rulebook: the pits, the practice runs,
-          the scoring table, and the moment a robot either does what it was told or does not.
-        </p>
-      </div>
-      <div class="video-frame reveal">
-        <iframe
-          src="https://www.youtube-nocookie.com/embed/z8N32AviJHo?rel=0"
-          title="Junior Botball Challenge — official film"
-          loading="lazy"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen></iframe>
-      </div>
-      <p class="film-note">
-        Can't see the player? <a href="https://www.youtube.com/watch?v=z8N32AviJHo" target="_blank" rel="noopener noreferrer">Open the film on YouTube ↗</a>
-      </p>
-    </div>
-  </section>
   <section id="levels" class="pad levels-sec">
     <div class="wrap">
       <div class="center-head reveal">
