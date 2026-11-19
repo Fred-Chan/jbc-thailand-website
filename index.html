@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Junior Botball Challenge Asia — Thailand Open</title>
+<meta name="description" content="Junior Botball Challenge Asia — Thailand Open. An international youth robotics competition in Bangkok, Thailand. The 2027 edition takes place on Sunday 9 May 2027 — registration of interest now open.">
+<style>
+  :root{
+    --ink:#0E1626;
+    --ink-2:#17223A;
+    --paper:#FFF9EF;
+    --sand:#FDEBC8;
+    --gold:#F7A823;
+    --gold-soft:#FFD36E;
+    --red:#E0231A;
+    --teal:#13A69B;
+    --muted:#6B7484;
+    --line:rgba(14,22,38,.10);
+    --radius:18px;
+    --max:1180px;
+    --shadow:0 18px 50px -24px rgba(14,22,38,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    background:var(--paper);color:var(--ink);line-height:1.65;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+  section{position:relative}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--red);
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--red);border-radius:2px}
+  h2.sec-title{
+    font-size:clamp(28px,4vw,44px);line-height:1.12;font-weight:900;letter-spacing:-.02em;
+    margin:14px 0 14px;
+  }
+  .lede{font-size:clamp(16px,1.5vw,18.5px);color:var(--muted);max-width:66ch}
+  .pad{padding:clamp(64px,8vw,110px) 0}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;justify-content:center;
+    padding:15px 28px;border-radius:999px;font-weight:800;font-size:15px;
+    text-decoration:none;border:2px solid transparent;cursor:pointer;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--red);color:#fff;box-shadow:0 14px 30px -14px rgba(224,35,26,.9)}
+  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.45);backdrop-filter:blur(6px)}
+  .btn-dark{background:var(--ink);color:#fff}
+  .btn-outline{background:transparent;color:var(--ink);border-color:var(--ink)}
+  /* nav */
+  header.nav{
+    position:sticky;top:0;z-index:60;
+    background:rgba(255,249,239,.86);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;height:68px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:-.01em;text-decoration:none}
+  .brand .dot{width:30px;height:30px;border-radius:9px;background:var(--red);display:grid;place-items:center;color:#fff;font-size:15px;font-weight:900}
+  .brand small{display:block;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1}
+  .nav-links{display:flex;align-items:center;gap:26px}
+  .nav-links a{font-size:14px;font-weight:600;text-decoration:none;color:var(--ink);opacity:.78}
+  .nav-links a:hover{opacity:1;color:var(--red)}
+  .nav-cta{padding:11px 20px;font-size:13.5px}
+  .burger{display:none;background:none;border:0;font-size:24px;cursor:pointer;color:var(--ink)}
+  .mobile-menu{display:none;flex-direction:column;gap:4px;padding:10px 24px 20px;border-top:1px solid var(--line)}
+  .mobile-menu a{padding:11px 0;text-decoration:none;font-weight:700;border-bottom:1px solid var(--line)}
+  @media(max-width:900px){
+    .nav-links{display:none}
+    .burger{display:block}
+    .mobile-menu.open{display:flex}
+  }
+  footer{background:var(--ink);color:#fff}
+  /* placeholders render safely */
+  .placeholder{min-height:1px}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- hero ---------- */
+  #hero{min-height:min(92vh,860px);display:flex;align-items:center;overflow:hidden;background:var(--ink)}
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 42%;transform:scale(1.08);filter:blur(14px) saturate(1.1)}
+  .hero-veil{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(100deg, rgba(10,16,28,.95) 0%, rgba(10,16,28,.9) 45%, rgba(10,16,28,.78) 100%),
+      linear-gradient(180deg, rgba(10,16,28,.6) 0%, rgba(10,16,28,.25) 35%, rgba(10,16,28,.75) 100%);
+  }
+  .hero-inner{
+    position:relative;z-index:2;color:#fff;padding:clamp(56px,7vw,96px) 24px clamp(80px,8vw,110px);
+    display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(30px,4.5vw,64px);align-items:center;
+  }
+  .hero-art{position:relative}
+  .hero-art img{
+    width:100%;border-radius:20px;
+    box-shadow:0 40px 90px -36px rgba(0,0,0,.95), 0 0 0 1px rgba(255,255,255,.14);
+  }
+  .hero-art::after{
+    content:"2026 key visual · City Rescue";
+    position:absolute;left:14px;bottom:-30px;font-size:11.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:rgba(255,255,255,.42);font-weight:700;
+  }
+  @media(max-width:980px){
+    .hero-inner{grid-template-columns:1fr;gap:38px}
+    .hero-art{order:-1;max-width:620px}
+    .hero-art::after{display:none}
+  }
+  .hero-tag{
+    display:inline-block;padding:8px 16px;border-radius:999px;
+    background:rgba(247,168,35,.16);border:1px solid rgba(255,211,110,.5);
+    color:var(--gold-soft);font-size:12.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  }
+  #hero h1{
+    margin:22px 0 0;font-size:clamp(42px,7.4vw,86px);line-height:.98;font-weight:900;letter-spacing:-.035em;
+    text-shadow:0 10px 40px rgba(0,0,0,.4);
+  }
+  #hero h1 .hl{
+    background:linear-gradient(95deg,var(--gold-soft),var(--gold) 55%,#FF7A3D);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-sub{margin-top:24px;max-width:56ch;font-size:clamp(15.5px,1.55vw,18.5px);color:rgba(255,255,255,.82)}
+  .hero-badge{
+    margin-top:30px;display:flex;gap:14px;align-items:flex-start;max-width:600px;
+    padding:16px 20px;border-radius:16px;
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.17);backdrop-filter:blur(8px);
+  }
+  .hero-badge strong{display:block;font-size:15px;color:#fff}
+  .hero-badge span{display:block;font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.5;margin-top:3px}
+  .pulse{flex:none;width:11px;height:11px;border-radius:50%;background:var(--red);margin-top:7px;box-shadow:0 0 0 0 rgba(224,35,26,.7);animation:pulse 2.1s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 13px rgba(224,35,26,0)}100%{box-shadow:0 0 0 0 rgba(224,35,26,0)}}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:clamp(22px,4vw,54px);margin-top:46px;padding-top:26px;border-top:1px solid rgba(255,255,255,.16)}
+  .hero-meta div{display:flex;flex-direction:column}
+  .hero-meta b{font-size:clamp(24px,3vw,34px);font-weight:900;color:var(--gold-soft);line-height:1.1;letter-spacing:-.02em}
+  .hero-meta span{font-size:12.5px;color:rgba(255,255,255,.62);letter-spacing:.03em;margin-top:4px}
+  .scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:3;width:22px;height:36px;border:2px solid rgba(255,255,255,.4);border-radius:12px}
+  .scroll-hint span{position:absolute;top:7px;left:50%;margin-left:-2px;width:4px;height:7px;border-radius:2px;background:#fff;animation:scrolly 1.8s infinite}
+  @keyframes scrolly{0%{opacity:0;transform:translateY(0)}35%{opacity:1}100%{opacity:0;transform:translateY(12px)}}
+
+  /* ---------- facts ---------- */
+  #facts{background:var(--ink-2);color:#fff;padding:clamp(44px,5vw,64px) 0}
+  .facts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(18px,2.4vw,34px)}
+  .fact{display:flex;flex-direction:column;gap:7px;padding-left:18px;border-left:3px solid rgba(247,168,35,.6)}
+  .fact-k{font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .fact-v{font-size:16.5px;font-weight:800;line-height:1.3}
+  .fact-n{font-size:13.5px;color:rgba(255,255,255,.6);line-height:1.6}
+  @media(max-width:960px){.facts-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.facts-grid{grid-template-columns:1fr}}
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,5vw,70px);align-items:start}
+  .pill-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+  .pill{
+    display:inline-block;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:700;
+    background:var(--sand);color:#8A5A00;border:1px solid rgba(247,168,35,.4);
+  }
+  .side-shot{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:#fff}
+  .side-shot img{width:100%;height:240px;object-fit:cover}
+  .side-shot figcaption{padding:12px 16px;font-size:12.5px;color:var(--muted);background:#fff}
+  .side-card{margin-top:22px;padding:26px;border-radius:var(--radius);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+  .side-card h3{font-size:17px;font-weight:900;margin-bottom:14px;letter-spacing:-.01em}
+  .ticks{list-style:none;display:flex;flex-direction:column;gap:13px}
+  .ticks li{position:relative;padding-left:26px;font-size:14.2px;color:#44506A;line-height:1.55}
+  .ticks li::before{
+    content:"";position:absolute;left:0;top:7px;width:14px;height:14px;border-radius:50%;
+    background:var(--teal);box-shadow:inset 0 0 0 3px #fff;
+  }
+  .ticks b{color:var(--ink)}
+  @media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+
+  /* ---------- film ---------- */
+  .film-sec{
+    background:
+      radial-gradient(1200px 500px at 15% 0%, rgba(247,168,35,.16), transparent 60%),
+      var(--ink);
+    color:#fff;padding:clamp(64px,8vw,110px) 0;
+  }
+  .film-head{max-width:70ch;margin-bottom:38px}
+  .video-frame{
+    position:relative;width:100%;padding-top:56.25%;border-radius:20px;overflow:hidden;
+    background:#000;box-shadow:0 40px 90px -40px rgba(0,0,0,.9);border:1px solid rgba(255,255,255,.12);
+  }
+  .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .film-note{margin-top:16px;font-size:13.5px;color:rgba(255,255,255,.55)}
+  .film-note a{color:var(--gold-soft);font-weight:700}
+
+  /* ---------- levels ---------- */
+  .levels-sec{background:linear-gradient(180deg,var(--paper),#FFF3E0)}
+  .center-head{max-width:64ch;margin:0 auto 46px;text-align:center}
+  .center-head .eyebrow::before{display:none}
+  .lv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,28px)}
+  .lv{
+    position:relative;padding:34px 28px 30px;border-radius:var(--radius);background:#fff;
+    border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .lv:hover{transform:translateY(-6px);box-shadow:0 30px 60px -28px rgba(14,22,38,.5)}
+  .lv::after{content:"";position:absolute;left:0;top:0;height:5px;width:100%;background:linear-gradient(90deg,var(--gold),var(--red))}
+  .lv-no{font-size:12px;font-weight:900;letter-spacing:.2em;color:var(--gold);}
+  .lv h3{font-size:25px;font-weight:900;letter-spacing:-.02em;margin:8px 0 12px}
+  .lv p{font-size:14.6px;color:#4A5568;line-height:1.65}
+  .lv-tag{display:block;margin-top:18px;padding-top:15px;border-top:1px dashed var(--line);font-size:12.5px;font-weight:700;color:var(--muted)}
+  .lv-shot{margin-top:clamp(28px,4vw,44px);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:#fff}
+  .lv-shot img{width:100%;max-height:430px;object-fit:cover}
+  .lv-shot figcaption{padding:14px 20px;font-size:13px;color:var(--muted)}
+  @media(max-width:900px){.lv-grid{grid-template-columns:1fr}}
+
+  /* ---------- recap ---------- */
+  .recap-sec{background:var(--paper)}
+  .recap-head{max-width:76ch;margin-bottom:40px}
+  .recap-head em{font-style:italic}
+  .stat-row{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:clamp(30px,4vw,46px);
+    padding:28px;border-radius:var(--radius);background:var(--ink);color:#fff;box-shadow:var(--shadow);
+  }
+  .stat{display:flex;flex-direction:column;gap:5px;text-align:center}
+  .stat b{font-size:clamp(22px,3vw,32px);font-weight:900;color:var(--gold-soft);letter-spacing:-.02em;line-height:1.1}
+  .stat span{font-size:12.5px;color:rgba(255,255,255,.62)}
+  @media(max-width:700px){.stat-row{grid-template-columns:repeat(2,1fr);gap:24px}}
+  .gal{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .g{position:relative;border-radius:14px;overflow:hidden;background:#000;box-shadow:var(--shadow)}
+  .g img{width:100%;height:230px;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
+  .g:hover img{transform:scale(1.06)}
+  .g-wide{grid-column:span 2}
+  .g-wide img{height:300px}
+  .g figcaption{
+    position:absolute;left:0;right:0;bottom:0;padding:26px 16px 12px;color:#fff;font-size:12.5px;font-weight:600;
+    background:linear-gradient(180deg,transparent,rgba(0,0,0,.78));
+  }
+  @media(max-width:900px){.gal{grid-template-columns:repeat(2,1fr)}.g-wide{grid-column:span 2}.g img,.g-wide img{height:200px}}
+  @media(max-width:560px){.gal{grid-template-columns:1fr}.g-wide{grid-column:span 1}}
+
+  /* ---------- international ---------- */
+  .intl-sec{
+    background:
+      radial-gradient(900px 420px at 85% 10%, rgba(19,166,155,.18), transparent 62%),
+      var(--ink-2);
+    color:#fff;
+  }
+  .intl-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,64px);align-items:start}
+  .steps{list-style:none;margin-top:34px;display:flex;flex-direction:column;gap:22px;counter-reset:s}
+  .steps li{display:flex;gap:16px;align-items:flex-start}
+  .step-n{
+    flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;
+    background:var(--red);color:#fff;font-weight:900;font-size:14px;margin-top:2px;
+  }
+  .steps b{font-size:16px;color:#fff}
+  .steps p{font-size:14.2px;color:rgba(255,255,255,.66);margin-top:4px;line-height:1.6}
+  .venue-shot{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}
+  .venue-shot img{width:100%;height:220px;object-fit:cover}
+  .venue-shot figcaption{padding:13px 17px;font-size:12.5px;color:rgba(255,255,255,.62)}
+  .faq{margin-top:22px;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04)}
+  .faq details{border-bottom:1px solid rgba(255,255,255,.1)}
+  .faq details:last-child{border-bottom:0}
+  .faq summary{
+    cursor:pointer;list-style:none;padding:16px 20px;font-size:14.6px;font-weight:700;
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+  }
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-size:19px;font-weight:700;color:var(--gold);flex:none}
+  .faq details[open] summary::after{content:"–"}
+  .faq summary:hover{background:rgba(255,255,255,.05)}
+  .faq p{padding:0 20px 18px;font-size:13.8px;color:rgba(255,255,255,.66);line-height:1.65}
+  @media(max-width:900px){.intl-grid{grid-template-columns:1fr}}
+
+  /* ---------- pathway ---------- */
+  .path-grid{display:grid;grid-template-columns:1fr .9fr;gap:clamp(32px,5vw,64px);align-items:center}
+  .path-cards{display:flex;flex-direction:column;gap:14px}
+  .pc{padding:22px 24px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);position:relative}
+  .pc span{font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .pc b{display:block;font-size:19px;font-weight:900;margin:4px 0 6px;letter-spacing:-.01em}
+  .pc p{font-size:13.8px;color:#4A5568}
+  .pc-accent{background:linear-gradient(135deg,var(--ink),var(--ink-2));color:#fff;border-color:transparent}
+  .pc-accent span{color:var(--gold)}
+  .pc-accent p{color:rgba(255,255,255,.7)}
+  @media(max-width:900px){.path-grid{grid-template-columns:1fr}}
+
+  /* ---------- results / certificates ---------- */
+  .results-sec{
+    background:linear-gradient(120deg,#7A1410,var(--red) 48%,#C21A12);
+    color:#fff;padding:clamp(54px,6vw,84px) 0;
+  }
+  .results-inner{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(28px,4vw,54px);align-items:center}
+  .results-sec .eyebrow::before{background:var(--gold-soft)}
+  .dl-card{
+    display:flex;align-items:center;gap:18px;text-decoration:none;color:var(--ink);
+    padding:24px 26px;border-radius:var(--radius);background:#fff;box-shadow:0 26px 60px -24px rgba(0,0,0,.6);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .dl-card:hover{transform:translateY(-4px);box-shadow:0 34px 70px -24px rgba(0,0,0,.7)}
+  .dl-icon{flex:none;width:52px;height:52px;border-radius:14px;background:var(--sand);color:#B4560A;display:grid;place-items:center;font-size:24px;font-weight:900}
+  .dl-text{flex:1;display:flex;flex-direction:column;gap:3px}
+  .dl-text b{font-size:17px;font-weight:900;letter-spacing:-.01em}
+  .dl-text small{font-size:12.6px;color:var(--muted)}
+  .dl-arrow{font-size:21px;color:var(--red);font-weight:900}
+  @media(max-width:860px){.results-inner{grid-template-columns:1fr}}
+
+  /* ---------- organisers ---------- */
+  .org-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.2vw,24px)}
+  .org{padding:26px 24px;border-radius:var(--radius);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+  .org h3{font-size:18px;font-weight:900;letter-spacing:-.01em;line-height:1.25}
+  .org-sub{font-size:12.5px;font-weight:700;color:var(--teal);margin:5px 0 12px;letter-spacing:.02em}
+  .org p:last-child{font-size:13.9px;color:#4A5568;line-height:1.62}
+  @media(max-width:960px){.org-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.org-grid{grid-template-columns:1fr}}
+
+  /* ---------- contact ---------- */
+  .contact-sec{
+    background:
+      radial-gradient(900px 400px at 10% 100%, rgba(247,168,35,.2), transparent 62%),
+      var(--ink);
+    color:#fff;padding:clamp(64px,8vw,110px) 0;
+  }
+  .contact-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,5vw,64px);align-items:start}
+  .mail-box{
+    margin-top:30px;display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+    padding:22px 24px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);
+  }
+  .mail-label{width:100%;font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+  .mail{font-size:clamp(19px,2.4vw,27px);font-weight:900;color:var(--gold-soft);text-decoration:none;letter-spacing:-.01em;word-break:break-all}
+  .mail:hover{text-decoration:underline}
+  .copy-btn{
+    margin-left:auto;padding:10px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.35);
+    background:transparent;color:#fff;font-weight:700;font-size:13px;cursor:pointer;transition:all .18s ease;
+  }
+  .copy-btn:hover{background:#fff;color:var(--ink)}
+  .copy-btn.done{background:var(--teal);border-color:var(--teal);color:#fff}
+  .mail-note{margin-top:12px;font-size:13px;color:rgba(255,255,255,.5)}
+  .tmpl{padding:28px;border-radius:var(--radius);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14)}
+  .tmpl h3{font-size:16px;font-weight:900;margin-bottom:14px}
+  .tmpl pre{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.95;
+    color:rgba(255,255,255,.72);white-space:pre-wrap;word-break:break-word;
+  }
+  @media(max-width:900px){.contact-inner{grid-template-columns:1fr}}
+
+  /* ---------- footer ---------- */
+  .foot-inner{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:clamp(24px,3.5vw,48px);padding:clamp(48px,6vw,72px) 24px clamp(32px,4vw,46px)}
+  .foot-brand p{margin-top:16px;font-size:13.6px;color:rgba(255,255,255,.55);max-width:38ch;line-height:1.65}
+  .foot-col{display:flex;flex-direction:column;gap:11px}
+  .foot-col h4{font-size:11.5px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+  .foot-col a{font-size:13.8px;color:rgba(255,255,255,.72);text-decoration:none}
+  .foot-col a:hover{color:#fff}
+  .foot-note{font-size:12.5px;color:rgba(255,255,255,.45)}
+  .foot-base{
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
+    padding:20px 24px 30px;border-top:1px solid rgba(255,255,255,.12);
+    font-size:12.3px;color:rgba(255,255,255,.45);
+  }
+  @media(max-width:860px){.foot-inner{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.foot-inner{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <span class="dot">b</span>
+      <span>JBC Thailand Open<small>Junior Botball Challenge Asia</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#film">Film</a>
+      <a href="#levels">Levels</a>
+      <a href="#recap">2026 Recap</a>
+      <a href="#international">International Teams</a>
+      <a href="#results">Certificates</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn-primary nav-cta">Register Interest</a>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#film">Film</a>
+    <a href="#levels">Levels</a>
+    <a href="#recap">2026 Recap</a>
+    <a href="#international">International Teams</a>
+    <a href="#results">Certificates</a>
+    <a href="#contact">Contact</a>
+  </div>
+</header>
+
+<main id="top">
+  <section id="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="images/hero.jpg" alt="">
+      <div class="hero-veil"></div>
+    </div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+      <span class="hero-tag">Bangkok · Thailand · 9 May 2027 · Open to teams worldwide</span>
+      <h1>Junior Botball<br><span class="hl">Challenge Asia</span><br>Thailand Open</h1>
+      <p class="hero-sub">
+        An international youth robotics competition where primary and secondary school teams design,
+        build and program autonomous robots to solve real-world rescue missions — on the floor, against
+        the clock, in front of a full arena.
+      </p>
+      <div class="hero-badge">
+        <span class="pulse"></span>
+        <div>
+          <strong>2027 Edition — Sunday 9 May 2027</strong>
+          <span>Registration of interest is now open. Venue confirmation in Bangkok to be announced — register early to receive the official invitation pack first.</span>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Register your interest →</a>
+        <a href="#film" class="btn btn-ghost">▶ Watch the film</a>
+      </div>
+      <div class="hero-meta">
+        <div><b>700+</b><span>participants &amp; guests in 2026</span></div>
+        <div><b>3</b><span>levels: Rookie · Advanced · Expert</span></div>
+        <div><b>EN</b><span>English-language event</span></div>
+      </div>
+      </div>
+      <div class="hero-art">
+        <img src="images/hero.jpg" alt="2026 Junior Botball Challenge Asia Thailand Open — City Rescue key visual">
+      </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true"><span></span></div>
+  </section>
+
+  <section id="facts">
+    <div class="wrap facts-grid">
+      <div class="fact reveal">
+        <span class="fact-k">Next edition</span>
+        <span class="fact-v">Sunday 9 May 2027 · Bangkok</span>
+        <span class="fact-n">Venue confirmation to be announced. The 2026 edition was hosted at King's College International School Bangkok, in a purpose-built indoor arena with a full competition floor.</span>
+      </div>
+      <div class="fact reveal">
+        <span class="fact-k">Who can enter</span>
+        <span class="fact-v">School &amp; club teams from any country</span>
+        <span class="fact-n">Teams of young students, each supported by one adult coach. No prior Botball experience required at Rookie level.</span>
+      </div>
+      <div class="fact reveal">
+        <span class="fact-k">Format</span>
+        <span class="fact-v">One-day on-site autonomous robot challenge</span>
+        <span class="fact-n">Opening ceremony, practice and calibration, scored competition rounds, then the award ceremony on the same day.</span>
+      </div>
+      <div class="fact reveal">
+        <span class="fact-k">What follows</span>
+        <span class="fact-v">A pathway to the JBC Global Finals in Beijing</span>
+        <span class="fact-n">Qualifying teams are invited to the Junior Botball Challenge Global Finals in Beijing, China, alongside thousands of peers.</span>
+      </div>
+    </div>
+  </section>
+  <section id="about" class="pad">
+    <div class="wrap about-grid">
+      <div class="about-copy reveal">
+        <span class="eyebrow">About the challenge</span>
+        <h2 class="sec-title">Robotics that behaves like the real world</h2>
+        <p class="lede">
+          The Junior Botball Challenge is an international educational robotics competition built on the
+          Botball program — a methodology with roots in MIT engineering education and a long history of
+          support from the wider robotics and space-science community. Teams are given a mission mat, a
+          set of objects and a strict time limit, and must make a robot solve the course entirely on its
+          own. No remote control, no second chances mid-run: whatever the students programmed is what the
+          robot does.
+        </p>
+        <p class="lede" style="margin-top:18px">
+          The Thailand Open is the Southeast Asian stage of that series. It is deliberately designed so
+          that a nine-year-old attempting their first line-following routine and a teenager optimising
+          sensor fusion can compete on the same floor, in different divisions, on the same day. The scoring
+          rewards reliability over spectacle — a modest robot that finishes every run cleanly will beat an
+          ambitious one that fails under pressure, which is precisely the engineering lesson the event
+          exists to teach.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Autonomous robots only</span>
+          <span class="pill">Teams of students + 1 coach</span>
+          <span class="pill">Judged by international referees</span>
+          <span class="pill">English-language event</span>
+        </div>
+      </div>
+      <aside class="about-side reveal">
+        <figure class="side-shot">
+          <img src="images/entrance-mascot.jpg" alt="The Botball mascot at the entrance of the Junior Botball Challenge in Bangkok" loading="lazy">
+          <figcaption>Arena entrance, Junior Botball Challenge 2026 Bangkok</figcaption>
+        </figure>
+        <div class="side-card">
+          <h3>What students actually take away</h3>
+          <ul class="ticks">
+            <li><b>Programming under constraint</b> — writing logic that must survive a noisy, physical environment.</li>
+            <li><b>Mechanical iteration</b> — rebuilding a gripper three times in one morning because the floor friction changed.</li>
+            <li><b>Debugging in public</b> — diagnosing failure calmly, with a referee and a crowd watching.</li>
+            <li><b>Cross-border teamwork</b> — sharing a pit floor with teams from across Asia and beyond.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="film" class="film-sec">
+    <div class="wrap">
+      <div class="film-head reveal">
+        <span class="eyebrow" style="color:var(--gold)">Official film</span>
+        <h2 class="sec-title" style="color:#fff">See a competition day from the inside</h2>
+        <p class="lede" style="color:rgba(255,255,255,.68)">
+          Three minutes that explain the format better than any rulebook: the pits, the practice runs,
+          the scoring table, and the moment a robot either does what it was told or does not.
+        </p>
+      </div>
+      <div class="video-frame reveal">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/z8N32AviJHo?rel=0"
+          title="Junior Botball Challenge — official film"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
+      </div>
+      <p class="film-note">
+        Can't see the player? <a href="https://www.youtube.com/watch?v=z8N32AviJHo" target="_blank" rel="noopener noreferrer">Open the film on YouTube ↗</a>
+      </p>
+    </div>
+  </section>
+  <section id="levels" class="pad levels-sec">
+    <div class="wrap">
+      <div class="center-head reveal">
+        <span class="eyebrow">Divisions</span>
+        <h2 class="sec-title">Three levels, one arena</h2>
+        <p class="lede" style="margin:0 auto">
+          Teams enter the division that matches their experience, and each division is scored and awarded
+          separately — so a first-year team is never measured against a veteran one.
+        </p>
+      </div>
+      <div class="lv-grid">
+        <article class="lv reveal">
+          <span class="lv-no">01</span>
+          <h3>Rookie</h3>
+          <p>For newcomers. Teams focus on getting a reliable robot moving accurately along the mission mat and completing the foundational tasks within the time limit.</p>
+          <span class="lv-tag">Entry point · no prior experience needed</span>
+        </article>
+        <article class="lv reveal">
+          <span class="lv-no">02</span>
+          <h3>Advanced</h3>
+          <p>For teams with a season or more behind them. Harder object handling, tighter tolerances and strategic choices about which missions to attempt and which to skip.</p>
+          <span class="lv-tag">Returning teams · strategy matters</span>
+        </article>
+        <article class="lv reveal">
+          <span class="lv-no">03</span>
+          <h3>Expert</h3>
+          <p>The sharp end. Sensor-driven precision, custom mechanisms and run-to-run consistency decide the podium; marginal gains in calibration separate gold from silver.</p>
+          <span class="lv-tag">Experienced competitors · top tier</span>
+        </article>
+      </div>
+      <figure class="lv-shot reveal">
+        <img src="images/trophies.jpg" alt="Gold trophies for the Rookie, Advanced and Expert levels at the 2026 Thailand Finals" loading="lazy">
+        <figcaption>Gold trophies for Rookie, Advanced and Expert — 2026 Junior Botball Challenge Asia Finals (Thailand)</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="recap" class="pad recap-sec">
+    <div class="wrap">
+      <div class="recap-head reveal">
+        <span class="eyebrow">Proof of concept</span>
+        <h2 class="sec-title">What the 2026 Bangkok edition looked like</h2>
+        <p class="lede">
+          On 3 May 2026, the Junior Botball Challenge Asia — Thailand Open was staged at King's College
+          International School Bangkok. The day opened with a traditional Thai <em>khon</em> masked-dance
+          performance, filled the school's indoor arena with competition mats from wall to wall, and closed
+          with an award ceremony for every division. More than 700 participants and guests attended, and a
+          large contingent of students went on to the Junior Botball Challenge Global Finals in Beijing
+          later that year.
+        </p>
+      </div>
+      <div class="stat-row reveal">
+        <div class="stat"><b>700+</b><span>participants &amp; guests on the day</span></div>
+        <div class="stat"><b>1</b><span>intensive competition day</span></div>
+        <div class="stat"><b>3</b><span>divisions awarded</span></div>
+        <div class="stat"><b>Beijing</b><span>onward pathway to the Global Finals</span></div>
+      </div>
+      <div class="gal">
+        <figure class="g g-wide reveal">
+          <img src="images/arena-floor.jpg" alt="Wide view of the competition arena packed with teams and mission mats" loading="lazy">
+          <figcaption>The arena floor, mats laid out end to end</figcaption>
+        </figure>
+        <figure class="g reveal">
+          <img src="images/between-runs.jpg" alt="Young competitors sitting beside their mission mat between runs" loading="lazy">
+          <figcaption>Between runs</figcaption>
+        </figure>
+        <figure class="g reveal">
+          <img src="images/khon-dance.jpg" alt="Traditional Thai masked dance performance at the opening ceremony" loading="lazy">
+          <figcaption>Opening ceremony, Thai <em>khon</em> performance</figcaption>
+        </figure>
+        <figure class="g reveal">
+          <img src="images/referees-floor.jpg" alt="Teams and referees working across the competition floor" loading="lazy">
+          <figcaption>Referees working the floor</figcaption>
+        </figure>
+        <figure class="g g-wide reveal">
+          <img src="images/award-gold.jpg" alt="Gold prize winners on stage at the 2026 award ceremony" loading="lazy">
+          <figcaption>Gold Prize, award ceremony</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <section id="international" class="pad intl-sec">
+    <div class="wrap intl-grid">
+      <div class="reveal">
+        <span class="eyebrow" style="color:var(--gold)">For teams travelling in</span>
+        <h2 class="sec-title" style="color:#fff">Built to be entered from abroad</h2>
+        <p class="lede" style="color:rgba(255,255,255,.72)">
+          The Thailand Open is run in English, in a city with one of Asia's best-connected airports, at a
+          campus that is used to hosting international visitors. Everything below is what an overseas coach
+          normally needs to settle before committing a team — tell us where you are flying from and we will
+          send the specifics for your country in the invitation pack.
+        </p>
+        <ol class="steps">
+          <li>
+            <span class="step-n">1</span>
+            <div><b>Register your interest</b><p>Send us your school or club name, country, number of teams and the age range of your students. No payment at this stage.</p></div>
+          </li>
+          <li>
+            <span class="step-n">2</span>
+            <div><b>Receive the invitation pack</b><p>Confirmed dates, the official rules and mission description for the season, division guidance, fees and the entry deadline.</p></div>
+          </li>
+          <li>
+            <span class="step-n">3</span>
+            <div><b>Plan travel and documents</b><p>We issue the supporting invitation letter teams commonly need for visa applications and for school approval, plus guidance on recommended hotels near the venue.</p></div>
+          </li>
+          <li>
+            <span class="step-n">4</span>
+            <div><b>Prepare and compete</b><p>Practice against the published mission, arrive for check-in and calibration, then compete and attend the award ceremony the same day.</p></div>
+          </li>
+        </ol>
+      </div>
+      <aside class="intl-side reveal">
+        <figure class="venue-shot">
+          <img src="images/venue-kings-college.jpg" alt="Main entrance of King's College International School Bangkok" loading="lazy">
+          <figcaption>King's College International School Bangkok — host venue of the 2026 edition</figcaption>
+        </figure>
+        <div class="faq">
+          <details>
+            <summary>Do we need Botball experience?</summary>
+            <p>No. The Rookie division exists precisely for teams entering their first season. Coaches receive the mission description in advance so students can practise before travelling.</p>
+          </details>
+          <details>
+            <summary>What language is the event run in?</summary>
+            <p>English. Briefings, referee communication, scoring and the ceremonies are all conducted in English.</p>
+          </details>
+          <details>
+            <summary>How many students per team?</summary>
+            <p>Teams are small — a handful of students working together on one robot — and each team must travel with a responsible adult coach. Exact team-size limits are confirmed in the invitation pack for each season.</p>
+          </details>
+          <details>
+            <summary>Can we get a letter for visas or school approval?</summary>
+            <p>Yes. Once your entry is confirmed, the organising team issues an official invitation letter naming your school, your students and the event dates.</p>
+          </details>
+          <details>
+            <summary>Can parents and teachers attend?</summary>
+            <p>Yes. The arena has spectator space and the award ceremony is open to accompanying family and staff.</p>
+          </details>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="pathway" class="pad">
+    <div class="wrap path-grid">
+      <div class="reveal">
+        <span class="eyebrow">The wider series</span>
+        <h2 class="sec-title">Bangkok is a stage, not the finish line</h2>
+        <p class="lede">
+          The Thailand Open belongs to the Junior Botball Challenge Asia series, which feeds into the
+          Junior Botball Challenge Global Finals held each year in Beijing, China. The Global Finals draw
+          thousands of competitors from more than a dozen countries and regions, and have been staged at
+          venues including the National Speed Skating Oval — the "Ice Ribbon" of the 2022 Winter Olympics.
+          For a team, that means one season can begin on a school floor in Bangkok and end in an Olympic
+          arena.
+        </p>
+        <a class="btn btn-outline" style="margin-top:26px" href="https://jbc.itccc.app" target="_blank" rel="noopener noreferrer">Visit the JBC Global Finals site ↗</a>
+      </div>
+      <div class="path-cards reveal">
+        <div class="pc"><span>Stage 1</span><b>Thailand Open</b><p>Bangkok, Thailand — the Southeast Asian open round.</p></div>
+        <div class="pc"><span>Stage 2</span><b>Other Asia opens</b><p>Parallel open rounds are held across the region each season.</p></div>
+        <div class="pc pc-accent"><span>Stage 3</span><b>JBC Global Finals</b><p>Beijing, China — the international finals of the series.</p></div>
+      </div>
+    </div>
+  </section>
+  <section id="results" class="results-sec">
+    <div class="wrap results-inner reveal">
+      <div>
+        <span class="eyebrow" style="color:var(--gold-soft)">Results &amp; certificates</span>
+        <h2 class="sec-title" style="color:#fff">2026 certificates are available to download</h2>
+        <p class="lede" style="color:rgba(255,255,255,.72)">
+          Every team that competed in the 2026 season can download its official certificate and result
+          record. Coaches should download on behalf of their students and keep a copy for school records.
+        </p>
+      </div>
+      <a class="dl-card" href="https://shuju.itccc.org.cn/f/PcWIzK/s/irzYLu" target="_blank" rel="noopener noreferrer">
+        <span class="dl-icon">⇩</span>
+        <span class="dl-text">
+          <b>2026 Certificate Download</b>
+          <small>Official certificates &amp; results · opens in a new tab</small>
+        </span>
+        <span class="dl-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="organisers" class="pad">
+    <div class="wrap">
+      <div class="center-head reveal">
+        <span class="eyebrow">Who runs it</span>
+        <h2 class="sec-title">Organisers &amp; partners</h2>
+      </div>
+      <div class="org-grid">
+        <div class="org reveal">
+          <h3>ITCCC</h3>
+          <p class="org-sub">Inspiring Teenagers to Create, Cooperate and Contribute</p>
+          <p>The Beijing-based organisation behind the Junior Botball Challenge Asia programme, responsible for the regional series and the Global Finals.</p>
+        </div>
+        <div class="org reveal">
+          <h3>KIPR</h3>
+          <p class="org-sub">KISS Institute for Practical Robotics</p>
+          <p>Creator and custodian of the Botball educational robotics programme, partnering with ITCCC on the Asia series.</p>
+        </div>
+        <div class="org reveal">
+          <h3>TEEMS Global</h3>
+          <p class="org-sub">Thailand delivery partner</p>
+          <p>Organiser of the Bangkok edition, bringing the challenge to schools and clubs across Thailand and Southeast Asia.</p>
+        </div>
+        <div class="org reveal">
+          <h3>King's College International School Bangkok</h3>
+          <p class="org-sub">Host venue, 2026</p>
+          <p>The Bangkok campus that hosted the 2026 Thailand Open, providing the competition arena and ceremony auditorium.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-sec">
+    <div class="wrap contact-inner">
+      <div class="reveal">
+        <span class="eyebrow" style="color:var(--gold)">Get in touch</span>
+        <h2 class="sec-title" style="color:#fff">Register your interest for 2027</h2>
+        <p class="lede" style="color:rgba(255,255,255,.72)">
+          One email is enough to start. Tell us your school or club, your country, how many teams you
+          expect to bring and the ages of your students — we will reply with the invitation pack for
+          Sunday 9 May 2027, and answer questions on entry, travel documents and preparation
+          in the meantime.
+        </p>
+        <div class="mail-box">
+          <span class="mail-label">Event enquiries</span>
+          <a class="mail" href="mailto:botball@itccc.org.cn?subject=JBC%20Thailand%20Open%202027%20%E2%80%94%20Registration%20of%20interest" target="_blank" rel="noopener noreferrer">botball@itccc.org.cn</a>
+          <button class="copy-btn" id="copyBtn" type="button">Copy email</button>
+        </div>
+        <p class="mail-note">International enquiries are answered in English.</p>
+      </div>
+      <div class="tmpl reveal">
+        <h3>Suggested enquiry template</h3>
+        <pre>School / club name:
+Country &amp; city:
+Contact person and role:
+Number of teams:
+Students' ages:
+Preferred division(s): Rookie / Advanced / Expert
+Prior Botball or robotics experience:
+Questions:</pre>
+        <a class="btn btn-primary" style="margin-top:20px;width:100%" href="mailto:botball@itccc.org.cn?subject=JBC%20Thailand%20Open%202027%20%E2%80%94%20Registration%20of%20interest&body=School%20%2F%20club%20name%3A%0ACountry%20%26%20city%3A%0AContact%20person%20and%20role%3A%0ANumber%20of%20teams%3A%0AStudents'%20ages%3A%0APreferred%20division(s)%3A%0APrior%20experience%3A%0AQuestions%3A%0A" target="_blank" rel="noopener noreferrer">Open a pre-filled email</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-brand">
+      <a href="#top" class="brand" style="color:#fff">
+        <span class="dot">b</span>
+        <span>JBC Thailand Open<small style="color:rgba(255,255,255,.5)">Junior Botball Challenge Asia</small></span>
+      </a>
+      <p>An international youth robotics competition staged in Bangkok, Thailand, as part of the Junior Botball Challenge Asia series.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Event</h4>
+      <a href="#about">About the challenge</a>
+      <a href="#levels">Divisions</a>
+      <a href="#recap">2026 recap</a>
+      <a href="#international">For international teams</a>
+    </div>
+    <div class="foot-col">
+      <h4>Resources</h4>
+      <a href="https://shuju.itccc.org.cn/f/PcWIzK/s/irzYLu" target="_blank" rel="noopener noreferrer">2026 certificate download ↗</a>
+      <a href="https://www.youtube.com/watch?v=z8N32AviJHo" target="_blank" rel="noopener noreferrer">Official film ↗</a>
+      <a href="https://jbc.itccc.app" target="_blank" rel="noopener noreferrer">JBC Global Finals ↗</a>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <a href="mailto:botball@itccc.org.cn" target="_blank" rel="noopener noreferrer">botball@itccc.org.cn</a>
+      <span class="foot-note">Enquiries answered in English.</span>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span>Junior Botball Challenge Asia — Thailand Open</span>
+    <span>Organised by ITCCC in partnership with KIPR · Botball® is a registered programme of the KISS Institute for Practical Robotics.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var burger=document.getElementById('burger');
+  var menu=document.getElementById('mobileMenu');
+  if(burger&&menu){
+    burger.addEventListener('click',function(){menu.classList.toggle('open');});
+    menu.addEventListener('click',function(e){if(e.target.tagName==='A')menu.classList.remove('open');});
+  }
+  // reveal-on-scroll (progressive enhancement; safe if no .reveal elements exist)
+  try{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+    window.__observeReveals=function(){document.querySelectorAll('.reveal:not(.in)').forEach(function(el){io.observe(el);});};
+  }catch(e){
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+    window.__observeReveals=function(){};
+  }
+
+  // copy email (no clipboard permission in sandbox -> fallback to execCommand)
+  var copyBtn=document.getElementById('copyBtn');
+  if(copyBtn){
+    copyBtn.addEventListener('click',function(){
+      var email='botball@itccc.org.cn';
+      var ok=false;
+      try{
+        var ta=document.createElement('textarea');
+        ta.value=email;
+        ta.setAttribute('readonly','');
+        ta.style.position='fixed';ta.style.top='-1000px';ta.style.opacity='0';
+        document.body.appendChild(ta);
+        ta.select();ta.setSelectionRange(0,email.length);
+        ok=document.execCommand('copy');
+        document.body.removeChild(ta);
+      }catch(err){ ok=false; }
+      if(!ok && navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(email).catch(function(){});
+        ok=true;
+      }
+      copyBtn.textContent = ok ? 'Copied ✓' : 'botball@itccc.org.cn';
+      copyBtn.classList.toggle('done', ok);
+      setTimeout(function(){ copyBtn.textContent='Copy email'; copyBtn.classList.remove('done'); },2200);
+    });
+  }
+})();
+</script>
+</body>
+</html>
