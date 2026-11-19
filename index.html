@@ -101,12 +101,12 @@
     display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(30px,4.5vw,64px);align-items:center;
   }
   .hero-art{position:relative}
-  .hero-art img{
-    width:100%;border-radius:20px;
+  .hero-art iframe{
+    width:100%;aspect-ratio:16/9;display:block;border:0;border-radius:20px;background:#000;
     box-shadow:0 40px 90px -36px rgba(0,0,0,.95), 0 0 0 1px rgba(255,255,255,.14);
   }
   .hero-art::after{
-    content:"2026 key visual · City Rescue";
+    content:"Official film · JBC 2026 Thailand Open";
     position:absolute;left:14px;bottom:-30px;font-size:11.5px;letter-spacing:.12em;
     text-transform:uppercase;color:rgba(255,255,255,.42);font-weight:700;
   }
@@ -425,7 +425,13 @@
       </div>
       </div>
       <div class="hero-art">
-        <img src="images/hero.jpg" alt="2026 Junior Botball Challenge Asia Thailand Open — City Rescue key visual">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/z8N32AviJHo?rel=0"
+          title="Junior Botball Challenge 2026 — official film"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
       </div>
     </div>
     <div class="scroll-hint" aria-hidden="true"><span></span></div>
@@ -515,6 +521,7 @@
         <iframe
           src="https://www.youtube-nocookie.com/embed/z8N32AviJHo?rel=0"
           title="Junior Botball Challenge — official film"
+          loading="lazy"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin"
